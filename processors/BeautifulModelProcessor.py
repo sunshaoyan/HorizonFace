@@ -20,6 +20,10 @@ class BeautifulModelProcessor(TextProcesser):
         reply_msg = '照片中 {} 的颜值最高，高达 {}'.format(name, result['beauty'])
         img = np.fromstring(result['img'], np.uint8)
         img = cv2.imdecode(img, cv2.IMREAD_UNCHANGED)
+        cv2.rectangle(img,
+                      (result['location']['left'], result['location']['top']),
+                      (result['location']['left']+result['location']['width'],
+                       result['location']['top']+result['location']['height']), (0, 0, 255), 2)
         path = 'images/{}_beauty.jpg'.format(result.id)
         cv2.imwrite(path, img)
         msg.reply(reply_msg)
