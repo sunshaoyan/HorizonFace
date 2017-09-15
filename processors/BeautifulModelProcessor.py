@@ -27,7 +27,7 @@ class BeautifulModelProcessor(TextProcesser):
                 name = u['name']
             except:
                 pass
-        reply_msg = '照片中 {} 的颜值最高，高达 {}'.format(name, result['beauty'])
+        reply_msg = '所有照片中 {} 的颜值最高，高达 {}'.format(name, result['beauty'])
         img = np.fromstring(result['img'], np.uint8)
         img = cv2.imdecode(img, cv2.IMREAD_UNCHANGED)
         cv2.rectangle(img,
