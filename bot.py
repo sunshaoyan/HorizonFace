@@ -97,6 +97,7 @@ class ProcessThread(threading.Thread):
                             dict['race'] = ct_res['race']
                             dict['glasses'] = ct_res['glasses']
                             dict['beauty'] = ct_res['beauty']
+                            dict['age'] = ct_res['age']
                         reply_msg += json.dumps(dict, ensure_ascii=False)
                         oc.img = bytearray(buf)
                         oc.save()

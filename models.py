@@ -42,6 +42,7 @@ class Occurences(Document):
     location = EmbeddedDocumentField('Location')
     img = BinaryField()
     expression = IntField()
+    age = FloatField()
     race = StringField()
     glasses = IntField()
     beauty = FloatField()
