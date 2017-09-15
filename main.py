@@ -15,6 +15,7 @@ class Message():
         img = cv2.imread(path)
         cv2.imshow('image', img)
         cv2.waitKey()
+        cv2.destroyAllWindows()
 
 
 tp = TextParser()
