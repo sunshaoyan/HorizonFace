@@ -4,10 +4,10 @@ This project is for automatically collecting and analysing photos within a wecha
 
 ## Dependencies
 
-1. wxpy : serves as a robot to collect photos and reply messages
-2. mongoengine : provides interaction with the database
+1. [wxpy](http://wxpy.readthedocs.io/zh/latest/index.html) : serves as a robot to collect photos and reply messages
+2. [mongoengine](http://docs.mongoengine.org/apireference.html) : provides interaction with the database
 3. (private) C++ server: provides face detection and recognition
-4. Baidu Face API: provides face detection and attributes analysis
+4. [Baidu Face API](https://cloud.baidu.com/doc/FACE/Face-API.html#.E4.BA.BA.E8.84.B8.E6.A3.80.E6.B5.8B): provides face detection and attributes analysis
 
 ## Development
 
