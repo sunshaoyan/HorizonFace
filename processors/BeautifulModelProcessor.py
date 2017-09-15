@@ -37,4 +37,4 @@ class BeautifulModelProcessor(TextProcesser):
         path = 'images/{}_beauty.jpg'.format(result.id)
         cv2.imwrite(path, img)
         msg.reply(reply_msg)
-        msg.reply_img(path)
+        msg.reply_image(path)
