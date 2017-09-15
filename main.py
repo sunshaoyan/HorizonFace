@@ -16,10 +16,12 @@ class Message():
         cv2.imshow('image', img)
         cv2.waitKey()
 
+
+tp = TextParser()
+
 while True:
     text = input('请输入消息(输入q退出):')
     if text == 'q':
         break
     msg = Message(text)
-    tp = TextParser(msg)
-    tp.parse_text(msg.text)
+    tp.parse_text(msg)
