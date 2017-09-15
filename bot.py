@@ -93,6 +93,7 @@ class ProcessThread(threading.Thread):
                             oc.race = ct_res['race']
                             oc.glasses = ct_res['glasses']
                             oc.beauty = ct_res['beauty']
+                            oc.age = ct_res['age']
                             dict['expression'] = ct_res['expression']
                             dict['race'] = ct_res['race']
                             dict['glasses'] = ct_res['glasses']
