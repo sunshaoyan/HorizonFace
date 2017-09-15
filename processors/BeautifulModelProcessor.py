@@ -6,10 +6,20 @@ import numpy as np
 
 class BeautifulModelProcessor(TextProcesser):
     def __init__(self):
-        super(BeautifulModelProcessor, self).__init__(r'颜值最高的人')
+        super(BeautifulModelProcessor, self).__init__(r'颜值最高的(.+)')
 
     def process(self, msg, match):
-        result = Occurences.objects().order_by('-beauty').limit(-1).first()
+        if match.groups()[0] == '人':
+            result = Occurences.objects().order_by('-beauty').limit(-1).first()
+        elif match.groups()[0] == '男生':
+            result = Occurences.objects(gender='male').order_by('-beauty').limit(-1).first()
+        elif match.groups()[0] == '女生':
+            result = Occurences.objects(gender='female').order_by('-beauty').limit(-1).first()
+        elif match.groups()[0] == '陌生人':
+            result = Occurences.objects(identity='unknown').order_by('-beauty').limit(-1).first()
+        else:
+            return
+
         name = "不知何许人也"
         if result['identity'] != 'unknown':
             try:
