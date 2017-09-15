@@ -1,79 +1,19 @@
 from wxpy import *
-from mongoengine import *
+from models import *
+from utils import *
+from TextParser import TextParser
 import cv2
-from datetime import datetime, timezone
+from datetime import datetime
 from time import sleep
 import threading
 import base64
 import httplib2
 import urllib
 import json
-import pdb
 import hashlib
-import re
 
 bot = Bot(cache_path=True)
 chat_group = ensure_one(bot.groups().search('HorizonFace'))
-
-connect('entrance_guard_usa', host='mongodb://10.31.32.139:27017')
-
-start_day = datetime(2017,9,10, tzinfo = timezone.utc)
-
-
-class PictureCollections(Document):
-    date = DateTimeField()
-    user = StringField()
-    img = BinaryField()
-    stats = StringField()
-    md5 = StringField()
-    meta = {
-        'strict': False
-    }
-
-class Users(Document):
-    identity = StringField()
-    name = StringField()
-    meta = {
-        'strict': False
-    }
-
-class Location(Document):
-    top = IntField()
-    left = IntField()
-    width = IntField()
-    height = IntField()
-
-class Occurences(Document):
-    identity = StringField()
-    location = EmbeddedDocumentField(Location)
-    img = BinaryField()
-    expression = IntField()
-    race = StringField()
-    glasses = IntField()
-    beauty = FloatField()
-    meta = {
-        'strict': False
-    }
-
-
-def overlap(bbox1, bbox2):
-    area1 = bbox1["width"] * bbox1["height"]
-    area2 = bbox2["width"] * bbox2["height"]
-    x1 = max(bbox1["left"], bbox2["left"])
-    y1 = max(bbox1["top"], bbox2["top"])
-    x2 = min(bbox1["left"] + bbox1["width"], bbox2["left"] + bbox2["width"])
-    y2 = min(bbox1["top"] + bbox1["height"], bbox2["top"] + bbox2["height"])
-    area_o = (x2-x1) * (y2-y1)
-    if x2 < x1 or y2 < y1:
-        area_o = 0
-    return area_o / min(area1, area2)
-
-def merge_ct(ct_hf, ct_bd):
-    for ct_hf_item in ct_hf["result"]:
-        for ct_bd_item in ct_bd["result"]:
-            if overlap(ct_hf_item["location"], ct_bd_item["location"]) > 0.5:
-                for key in ct_bd_item.keys():
-                    ct_hf_item[key] = ct_bd_item[key]
 
 class ProcessThread(threading.Thread):
 
@@ -122,16 +62,45 @@ class ProcessThread(threading.Thread):
                 merge_ct(ct_hf, ct_bd)
 
                 chat_group.send_image(new_path)
-                # chat_group.send_msg(ct_hf)
 
                 try:
                     tpc = PictureCollections.objects.get(md5=md5)
+                    self.msg.reply('这张照片已经发过啦')
                 except PictureCollections.DoesNotExist:
                     pc = PictureCollections.objects.get(id=str(self.pid))
                     pc.md5 = md5
                     pc.stats = json.dumps(ct_hf)
                     pc.img = bytearray(buf)
                     pc.save()
+                    reply_msg = ""
+                    for ct_res in ct_hf['result']:
+                        identity = ct_res['identity']
+                        if not ct_res['identity']:
+                            identity = 'unknown'
+                        oc = Occurences(
+                            identity=identity,
+                            photographer=self.msg.member.name,
+                            location=Location(
+                                left=ct_res['location']['left'],
+                                top=ct_res['location']['top'],
+                                width=ct_res['location']['width'],
+                                height=ct_res['location']['height']
+                            )
+                        )
+                        dict = oc.to_mongo()
+                        if 'expression' in ct_res:
+                            oc.expression = ct_res['expression']
+                            oc.race = ct_res['race']
+                            oc.glasses = ct_res['glasses']
+                            oc.beauty = ct_res['beauty']
+                            dict['expression'] = ct_res['expression']
+                            dict['race'] = ct_res['race']
+                            dict['glasses'] = ct_res['glasses']
+                            dict['beauty'] = ct_res['beauty']
+                        reply_msg += json.dumps(dict, ensure_ascii=False)
+                        oc.img = bytearray(buf)
+                        oc.save()
+                    self.msg.reply(reply_msg)
                 except Exception as e:
                     print(e)
             except Exception as e:
@@ -152,71 +121,10 @@ def process_img_msg(msg):
     th.start()
 
 
-class TextProcesser():
-    def __init__(self, pattern_str, msg):
-        self.pattern = re.compile(pattern_str)
-        self.msg = msg
-
-    def match(self, text):
-        match = self.pattern.match(text)
-        if match:
-            self.process(match)
-            return True
-        return False
-
-    def process(self, match):
-        pass
-
-class LikeTextProcessor(TextProcesser):
-    def __init__(self, msg):
-        super(LikeTextProcessor, self).__init__(r'@(.*)\s最中意谁', msg)
-
-    def process(self, match):
-        name = match.groups()[0]
-        records = PictureCollections.objects(user=name, stats__exists=True)
-        total_msg = '{}共拍了{}张照片'.format(name, PictureCollections.objects(user=name, date__gt=start_day).count())
-        result_msg = '，结果谁都没有拍到过'
-        person_records = {}
-        for record in records:
-            result = json.loads(record['stats'])
-            for p in result['result']:
-                if p['identity']:
-                    person_records[p['identity']] = person_records[p['identity']] + 1 if p['identity'] in person_records else 1
-        if person_records:
-            max_key = self.keywithmaxval(person_records)
-            try:
-                user = Users.objects.get(identity=max_key)
-                result_msg = '其中{}张都有{}'.format(person_records[max_key], user.name)
-            except:
-                pass
-        reply_msg = total_msg + result_msg
-        self.msg.reply(reply_msg)
-
-
-    def keywithmaxval(self, d):
-        """ a) create a list of the dict's keys and values; 
-         b) return the key with the max value"""  
-        v=list(d.values())
-        k=list(d.keys())
-        return k[v.index(max(v))]
-
-
-
-class TextParser():
-    """docstring for TextParser"""
-    def __init__(self, msg):
-        self.processors = [LikeTextProcessor(msg)]
-
-    def parse_text(self, text):
-        for processor in self.processors:
-            if processor.match(text):
-                break
-
-
 @bot.register(chat_group, TEXT)
 def process_text_msg(msg):
+    print(msg)
     tp = TextParser(msg)
     tp.parse_text(msg.text)
-    print(msg)
 
 bot.join()
