@@ -1,5 +1,6 @@
 __pycache__
 *.pkl
-images/
+images/*
 .DS_Store
 .idea/
+!images/.gitkeep
