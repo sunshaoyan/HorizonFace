@@ -93,6 +93,7 @@ class ProcessThread(threading.Thread):
                             oc.race = ct_res['race']
                             oc.glasses = ct_res['glasses']
                             oc.beauty = ct_res['beauty']
+                            oc.age = ct_res['age']
                             dict['expression'] = ct_res['expression']
                             dict['race'] = ct_res['race']
                             dict['glasses'] = ct_res['glasses']
@@ -121,11 +122,11 @@ def process_img_msg(msg):
     th = ProcessThread(file_name, msg, pc.id)
     th.start()
 
+tp = TextParser()
 
 @bot.register(chat_group, TEXT)
 def process_text_msg(msg):
     print(msg)
-    tp = TextParser(msg)
-    tp.parse_text(msg.text)
+    tp.parse_text(msg)
 
 bot.join()
