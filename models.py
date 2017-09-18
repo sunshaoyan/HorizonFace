@@ -1,8 +1,7 @@
 from mongoengine import *
 import datetime
 
-connect('entrance_guard_usa', host='mongodb://10.31.32.139:27017')
-
+connect('entrance_guard_usa', host='mongodb://114.55.27.91:27018')
 
 class PictureCollections(Document):
     date = DateTimeField()
