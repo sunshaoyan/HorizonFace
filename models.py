@@ -1,8 +1,6 @@
 from mongoengine import *
 import datetime
 
-# connect('entrance_guard_usa', host='mongodb://104.225.144.56:27017')
-# connect('entrance_guard_usa', host='mongodb://114.55.27.91:27018')
 connect('entrance_guard_usa', host='mongodb://192.168.43.118:27017')
 
 
@@ -45,15 +43,15 @@ class Location(Document):
 
 class Occurences(Document):
     identity = StringField()
-    location = EmbeddedDocumentField('Location')
+    location = EmbeddedDocumentField('Location') #脸部框的位置
     img = BinaryField()
-    expression = IntField()
+    expression = IntField() #表情，0是不笑，1是笑，2是大笑
     age = FloatField()
-    race = StringField()
-    gender = StringField()
-    glasses = IntField()
-    beauty = FloatField()
-    photographer = StringField()
+    race = StringField() #种族，字符串，white yellow black
+    gender = StringField() #
+    glasses = IntField() #
+    beauty = FloatField() #
+    photographer = StringField() #
     date = DateTimeField()
     meta = {
         'strict': False,
