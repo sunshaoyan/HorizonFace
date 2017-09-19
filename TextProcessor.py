@@ -2,6 +2,7 @@ import re
 
 class TextProcesser():
     def __init__(self, pattern_str):
+        print(pattern_str)
         self.pattern = re.compile(pattern_str)
 
     def match(self, msg):
