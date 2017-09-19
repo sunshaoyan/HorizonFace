@@ -1,7 +1,12 @@
 from mongoengine import *
 import datetime
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> a5c44cfb652dc17dc9bc6c7539b71f6773217965
 connect('entrance_guard_usa', host='mongodb://192.168.43.118:27017')
+
 
 class PictureCollections(Document):
     date = DateTimeField()
@@ -28,7 +33,10 @@ class Users(Document):
     name = StringField()
     sex = StringField()
     meta = {
-        'strict': False
+        'strict': False,
+        'indexes': [
+            '#identity'
+        ]
     }
 
 class Location(Document):
@@ -36,7 +44,7 @@ class Location(Document):
     left = IntField()
     width = IntField()
     height = IntField()
-    
+
 class Occurences(Document):
     identity = StringField()
     location = EmbeddedDocumentField('Location') #脸部框的位置
