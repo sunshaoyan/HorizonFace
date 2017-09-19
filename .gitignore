@@ -4,3 +4,5 @@ images/*
 .DS_Store
 .idea/
 !images/.gitkeep
+*.pyc
+
