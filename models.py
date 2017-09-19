@@ -27,6 +27,7 @@ class PictureCollections(Document):
 class Users(Document):
     identity = StringField()
     name = StringField()
+    sex = StringField()
     meta = {
         'strict': False
     }
@@ -42,7 +43,9 @@ class Occurences(Document):
     location = EmbeddedDocumentField('Location')
     img = BinaryField()
     expression = IntField()
+    age = FloatField()
     race = StringField()
+    gender = StringField()
     glasses = IntField()
     beauty = FloatField()
     photographer = StringField()
