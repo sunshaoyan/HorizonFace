@@ -22,7 +22,6 @@ class BeautifulModelProcessor(TextProcesser):
         else:
             return
         
-        #print("matching finished")
         
         name = "不知何许人也"
         
@@ -41,10 +40,7 @@ class BeautifulModelProcessor(TextProcesser):
                       (result['location']['left'], result['location']['top']),
                       (result['location']['left']+result['location']['width'],
                        result['location']['top']+result['location']['height']), (0, 0, 255), 2)
-        #cv2.imshow("123",img)
-        #cv2.waitKey(0)
         path = 'images/{}_beauty.jpg'.format(result.id)
         cv2.imwrite(path, img)
-        #print("writing finished!!!!!!")
         msg.reply(reply_msg)
         msg.reply_image(path)

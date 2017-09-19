@@ -1,10 +1,6 @@
 from mongoengine import *
 import datetime
 
-<<<<<<< HEAD
-=======
-
->>>>>>> a5c44cfb652dc17dc9bc6c7539b71f6773217965
 connect('entrance_guard_usa', host='mongodb://192.168.43.118:27017')
 
 
