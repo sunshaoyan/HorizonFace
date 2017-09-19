@@ -21,9 +21,9 @@ To develop your own parser, you could follow these steps:
 from TextParser import TextParser
 
 class LikeTextProcessor(TextParser):
-    def __init__(self, msg):
+    def __init__(self):
         # register a reg-expression here for the command
-        super(LikeTextProcessor, self).__init__(r'@(.*)\s最中意谁', msg)
+        super(LikeTextProcessor, self).__init__(r'@(.*)\s最中意谁')
         
     def process(self, match):
         # match is the match for the reg-expression
