@@ -1,8 +1,5 @@
 from TextProcessor import TextProcesser
 from models import *
-import os
-import sys
-sys.path[1] = "~/.local/lib/python3.5/site-packages/cv2"
 import cv2
 import numpy as np
 

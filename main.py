@@ -1,11 +1,6 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 from TextParser import TextParser
-import sys
-import os
-#print(sys.path)
-sys.path[1] = "~/.local/lib/python3.5/site-packages/cv2"
-#print(sys.path)
 import cv2
 
 """

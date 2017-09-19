@@ -1,8 +1,5 @@
 import inspect
 import processors
-import os
-import sys
-sys.path[1] = "~/.local/lib/python3.5/site-packages/cv2"
 
 
 class TextParser():
