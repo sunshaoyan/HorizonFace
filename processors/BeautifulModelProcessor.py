@@ -9,8 +9,6 @@ class BeautifulModelProcessor(TextProcesser):
         super(BeautifulModelProcessor, self).__init__(r'颜值最高的(.+)')
 
     def process(self, msg, match):
-        #print("matching text!")
-        
         if match.groups()[0] == '人':
             result = Occurences.objects().order_by('-beauty').limit(-1).first()
         elif match.groups()[0] == '男生':
@@ -22,7 +20,6 @@ class BeautifulModelProcessor(TextProcesser):
         else:
             return
         
-        
         name = "不知何许人也"
         
         if result['identity'] != 'unknown':
@@ -33,7 +30,6 @@ class BeautifulModelProcessor(TextProcesser):
                 pass
         
         reply_msg = '所有照片中 {} 的颜值最高，高达 {}'.format(name, result['beauty'])
-        print(reply_msg)
         img = np.fromstring(result['img'], np.uint8)
         img = cv2.imdecode(img, cv2.IMREAD_UNCHANGED)
         cv2.rectangle(img,
