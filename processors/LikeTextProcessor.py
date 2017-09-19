@@ -7,11 +7,11 @@ import json
 
 class LikeTextProcessor(TextProcesser):
     def __init__(self):
-        super(LikeTextProcessor, self).__init__(r'@(.*)\s最中意谁')
+        super(LikeTextProcessor, self).__init__(r'@(.*)\s最中意谁')#..匹配数据  \s空格
 
     def process(self, msg, match):
         name = match.groups()[0]
-        records = PictureCollections.objects(user=name, stats__exists=True)
+        records = PictureCollections.objects(user=name, stats__exists=True)   
         total_msg = '{}共拍了{}张照片'.format(name, PictureCollections.objects(user=name, date__gt=start_day).count())
         result_msg = '，结果谁都没有拍到过'
         person_records = {}
@@ -23,7 +23,7 @@ class LikeTextProcessor(TextProcesser):
         if person_records:
             max_key = keywithmaxval(person_records)
             try:
-                user = Users.objects.get(identity=max_key)
+                user = Users.objects.get(identity=max_key)   #获得用户名
                 result_msg = '其中{}张都有{}'.format(person_records[max_key], user.name)
             except:
                 pass
