@@ -19,4 +19,4 @@ class TextParser():
     def parse_text(self, msg):
         for processor in self.processors:
             if processor.match(msg):
-                break
+                
