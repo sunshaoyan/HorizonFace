@@ -1,7 +1,8 @@
 from mongoengine import *
 import datetime
 
-connect('entrance_guard_usa', host='mongodb://10.31.32.139:27017')
+//connect('entrance_guard_usa', host='mongodb://10.31.32.139:27017')
+connect('entrance_guard_usa', host='mongodb://192.168.43.118:27017')
 
 
 class PictureCollections(Document):
@@ -36,7 +37,7 @@ class Location(Document):
     left = IntField()
     width = IntField()
     height = IntField()
-    
+
 class Occurences(Document):
     identity = StringField()
     location = EmbeddedDocumentField('Location')
