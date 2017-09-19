@@ -43,7 +43,6 @@ class Location(Document):
     width = IntField()
     height = IntField()
 
-    
 class Occurences(Document):   #一个人脸框一个记录
     identity = StringField()  #kai.yu
     location = EmbeddedDocumentField('Location') 
