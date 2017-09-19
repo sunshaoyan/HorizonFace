@@ -4,12 +4,12 @@ from utils import *
 from conf import start_day
 import json
 
-class LikeTextProcessor(TextProcesser):
-    def __init__(self, msg):
-        super(LikeTextProcessor, self).__init__(r'@(.*)\s最中意谁', msg)
-        print("registered like text processor")
 
-    def process(self, match):
+class LikeTextProcessor(TextProcesser):
+    def __init__(self):
+        super(LikeTextProcessor, self).__init__(r'@(.*)\s最中意谁')
+
+    def process(self, msg, match):
         name = match.groups()[0]
         records = PictureCollections.objects(user=name, stats__exists=True)
         total_msg = '{}共拍了{}张照片'.format(name, PictureCollections.objects(user=name, date__gt=start_day).count())
@@ -28,4 +28,4 @@ class LikeTextProcessor(TextProcesser):
             except:
                 pass
         reply_msg = total_msg + result_msg
-        self.msg.reply(reply_msg)
+        msg.reply(reply_msg)

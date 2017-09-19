@@ -1,3 +1,4 @@
+from conf import bbox_overlap_thre
 
 def overlap(bbox1, bbox2):
     area1 = bbox1["width"] * bbox1["height"]
@@ -14,7 +15,7 @@ def overlap(bbox1, bbox2):
 def merge_ct(ct_hf, ct_bd):
     for ct_hf_item in ct_hf["result"]:
         for ct_bd_item in ct_bd["result"]:
-            if overlap(ct_hf_item["location"], ct_bd_item["location"]) > 0.5:
+            if overlap(ct_hf_item["location"], ct_bd_item["location"]) > bbox_overlap_thre:
                 for key in ct_bd_item.keys():
                     ct_hf_item[key] = ct_bd_item[key]
 

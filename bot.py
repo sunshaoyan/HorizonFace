@@ -93,10 +93,18 @@ class ProcessThread(threading.Thread):
                             oc.race = ct_res['race']
                             oc.glasses = ct_res['glasses']
                             oc.beauty = ct_res['beauty']
+                            oc.age = ct_res['age']
+                            oc.gender = ct_res['gender']
                             dict['expression'] = ct_res['expression']
                             dict['race'] = ct_res['race']
                             dict['glasses'] = ct_res['glasses']
                             dict['beauty'] = ct_res['beauty']
+                            dict['age'] = ct_res['age']
+                            dict['gender'] = ct_res['gender']
+                        if identity != 'unknown':
+                            user = Users.objects.get(identity=identity)
+                            oc.gender = user.sex
+                            dict['gender'] = user.sex
                         reply_msg += json.dumps(dict, ensure_ascii=False)
                         oc.img = bytearray(buf)
                         oc.save()
@@ -120,11 +128,11 @@ def process_img_msg(msg):
     th = ProcessThread(file_name, msg, pc.id)
     th.start()
 
+tp = TextParser()
 
 @bot.register(chat_group, TEXT)
 def process_text_msg(msg):
     print(msg)
-    tp = TextParser(msg)
-    tp.parse_text(msg.text)
+    tp.parse_text(msg)
 
 bot.join()
