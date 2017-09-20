@@ -2,14 +2,15 @@ from mongoengine import *
 import datetime
 
 #connect('entrance_guard_usa', host='mongodb://10.31.32.139:27017')
+#connect('entrance_guard_usa', host='mongodb://114.55.27.91:27018')192.16
 connect('entrance_guard_usa', host='mongodb://192.168.43.118:27017')
 
 
-class PictureCollections(Document):
-    date = DateTimeField()
-    user = StringField()
-    img = BinaryField()
-    stats = StringField()
+class PictureCollections(Document):   #json数组  按照照片数
+    date = DateTimeField()   #上传日期
+    user = StringField()     #摄影师 群昵称
+    img = BinaryField()    #原始图像 图像二进制编码 看decode
+    stats = StringField()   #json字符串 所有源数据 格式在readme  reload0.g...  user 三个字段 邮箱id  kai.yu
     md5 = StringField()
     meta = {
         'strict': False,
@@ -30,7 +31,10 @@ class Users(Document):
     name = StringField()
     sex = StringField()
     meta = {
-        'strict': False
+        'strict': False,
+        'indexes': [
+            '#identity'
+        ]
     }
 
 class Location(Document):
@@ -39,18 +43,24 @@ class Location(Document):
     width = IntField()
     height = IntField()
 
+<<<<<<< HEAD
 class Occurences(Document):
     identity = StringField()
     location = EmbeddedDocumentField('Location')
+=======
+class Occurences(Document):   #一个人脸框一个记录
+    identity = StringField()  #kai.yu
+    location = EmbeddedDocumentField('Location')
+>>>>>>> 41c95d8d9083c4010970b974978d8aac59ab21c7
     img = BinaryField()
-    expression = IntField()
+    expression = IntField()   #表情
     age = FloatField()
-    race = StringField()
+    race = StringField()  #人种
     gender = StringField()
     glasses = IntField()
     beauty = FloatField()
-    photographer = StringField()
-    date = DateTimeField()
+    photographer = StringField()   #上传者
+    date = DateTimeField()    #上传时间
     meta = {
         'strict': False,
         'indexes': [
