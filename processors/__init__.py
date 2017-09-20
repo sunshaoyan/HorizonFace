@@ -4,6 +4,7 @@ from .GlassesNumberProcessor import GlassesNumberProcessor
 from .AgeProcessor import AgeProcessor
 from .YoungProcessor import YoungProcessor
 from .SmileTextProcessor import SmileTextProcessor
+from .BeautyTextProcessor import BeautyTextProcessor
 
 __all__= [
     'LikeTextProcessor',
@@ -12,4 +13,5 @@ __all__= [
     'AgeProcessor',
     'YoungProcessor',
     'SmileTextProcessor',
+    'BeautyTextProcessor',
 ]
