@@ -3,11 +3,11 @@ from models import *
 from utils import *
 from conf import start_day
 import json
-
+import sklearn
 
 class smileTextProcessor(TextProcesser):
     def __init__(self):
-        super(smileTextProcessor, self).__init__(r'谁拍的照片笑脸最多')
+        super(smileTextProcessor, self).__init__(r'谁对着镜头姿态最固定')
 
     def process(self, msg, match):
         all_name = []
@@ -15,10 +15,12 @@ class smileTextProcessor(TextProcesser):
             all_name.append(ss.name)
         _top_photographer = 'no'
         _top_smile_num = 0
-
+        _pitch = 0
+        _yaw = 0
+        _roll = 0
         for name in allname:
-            records = PictureCollections.objects(user = name)
-            total_img_num = PictureCollections(user = name,data__gt =
+            records = Occurrences.objects(user = name)
+            total_img_num = Occurrences.objects(user = name,data__gt =
                     start_day).count()
             _smile_num_temp = 0
             for record in records:
