@@ -43,15 +43,9 @@ class Location(Document):
     width = IntField()
     height = IntField()
 
-<<<<<<< HEAD
-class Occurences(Document):
-    identity = StringField()
-    location = EmbeddedDocumentField('Location')
-=======
 class Occurences(Document):   #一个人脸框一个记录
     identity = StringField()  #kai.yu
     location = EmbeddedDocumentField('Location')
->>>>>>> 41c95d8d9083c4010970b974978d8aac59ab21c7
     img = BinaryField()
     expression = IntField()   #表情
     age = FloatField()
