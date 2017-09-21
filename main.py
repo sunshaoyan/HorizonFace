@@ -1,3 +1,4 @@
+# coding: UTF-8
 from TextParser import TextParser
 import cv2
 
