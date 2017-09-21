@@ -3,7 +3,10 @@ from .BeautifulModelProcessor import BeautifulModelProcessor
 from .GlassesNumberProcessor import GlassesNumberProcessor
 from .AgeProcessor import AgeProcessor
 from .YoungProcessor import YoungProcessor
-from .MostPopularProcessor import MostPopularProcessor
+from .SmileTextProcessor import SmileTextProcessor
+from .BeautyTextProcessor import BeautyTextProcessor
+from .LovelyProcessor import LovelyProcessor
+from .HappyTextProcessor import HappyTextProcessor
 
 __all__= [
     'LikeTextProcessor',
@@ -12,4 +15,8 @@ __all__= [
     'AgeProcessor',
     'YoungProcessor',
     'MostPopularProcessor',
+    'SmileTextProcessor',
+    'BeautyTextProcessor',
+    'LovelyProcessor',
+    'HappyTextProcessor',
 ]
