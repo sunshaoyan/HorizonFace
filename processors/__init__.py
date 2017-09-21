@@ -14,6 +14,7 @@ __all__= [
     'GlassesNumberProcessor',
     'AgeProcessor',
     'YoungProcessor',
+    'MostPopularProcessor',
     'SmileTextProcessor',
     'BeautyTextProcessor',
     'LovelyProcessor',
