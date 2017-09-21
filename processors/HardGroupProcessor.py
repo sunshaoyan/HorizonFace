@@ -47,6 +47,7 @@ class HardGroupProcessor(TextProcesser):
                 list_results.append(tmp_result)
                 id_results.append(str_records[i].id)
 
+
         print(list_results.__len__())
         for i in range(list_results.__len__()):
             for j in range(len(list_results[i])):
@@ -79,14 +80,17 @@ class HardGroupProcessor(TextProcesser):
             if f_en_name and f_max_name:
                 self.result_ID = str_records[i].id
                 break
+
         try:
             pic = PictureCollections.objects.get(id=self.result_ID)
             img = np.fromstring(pic['img'], np.uint8)  #kuangrenlian
             img = cv2.imdecode(img, cv2.IMREAD_UNCHANGED)
             path = 'images/{}_beauty.jpg'.format(pic.id)  #保存
             cv2.imwrite(path, img)
+
             msg.reply(str(self.name_map) + '\n----------------\n' + en_name + " & " + max_name + " 为最强小团体")
             msg.reply_image(path)
+
         except PictureCollections.DoesNotExist:
             msg.reply("The picture is not found.")
 
