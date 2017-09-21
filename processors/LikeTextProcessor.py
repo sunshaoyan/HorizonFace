@@ -1,3 +1,4 @@
+# -*- coding:utf-8 -*-
 from TextProcessor import TextProcesser
 from models import *
 from utils import *

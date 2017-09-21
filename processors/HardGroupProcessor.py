@@ -1,3 +1,4 @@
+# -*- coding:utf-8 -*-
 from TextProcessor import TextProcesser
 from models import *
 import cv2
@@ -21,11 +22,6 @@ class HardGroupProcessor(TextProcesser):
             self.id_to_name[user.identity] = user.name
             self.name_map[user.identity] = 0
             self.name_to_id[user.name] = user.identity
-
-
-
-
-
 
     def process(self, msg, match):
         zh_name = match.groups()[0]
