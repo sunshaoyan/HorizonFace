@@ -7,6 +7,7 @@ from .SmileTextProcessor import SmileTextProcessor
 from .BeautyTextProcessor import BeautyTextProcessor
 from .LovelyProcessor import LovelyProcessor
 from .HappyTextProcessor import HappyTextProcessor
+from .MostPopularProcessor import MostPopularProcessor
 
 __all__= [
     'LikeTextProcessor',
@@ -14,6 +15,7 @@ __all__= [
     'GlassesNumberProcessor',
     'AgeProcessor',
     'YoungProcessor',
+    'MostPopularProcessor',
     'SmileTextProcessor',
     'BeautyTextProcessor',
     'LovelyProcessor',

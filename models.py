@@ -11,7 +11,7 @@ class PictureCollections(Document):   #json数组  按照照片数
     user = StringField()     #摄影师 群昵称
     img = BinaryField()    #原始图像 图像二进制编码 看decode
     stats = StringField()   #json字符串 所有源数据 格式在readme  reload0.g...  user 三个字段 邮箱id  kai.yu
-    md5 = StringField()    
+    md5 = StringField()
     meta = {
         'strict': False,
         'indexes': [
@@ -45,7 +45,7 @@ class Location(Document):
 
 class Occurences(Document):   #一个人脸框一个记录
     identity = StringField()  #kai.yu
-    location = EmbeddedDocumentField('Location') 
+    location = EmbeddedDocumentField('Location')
     img = BinaryField()
     expression = IntField()   #表情
     age = FloatField()
