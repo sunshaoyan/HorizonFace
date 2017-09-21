@@ -3,6 +3,10 @@ from models import *
 from utils import *
 from conf import start_day
 import json
+from models import *
+from utils import *
+from conf import start_day
+import json
 
 
 class SmileTextProcessor(TextProcesser):
