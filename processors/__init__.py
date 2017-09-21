@@ -6,6 +6,7 @@ from .YoungProcessor import YoungProcessor
 from .SmileTextProcessor import SmileTextProcessor
 from .BeautyTextProcessor import BeautyTextProcessor
 from .LovelyProcessor import LovelyProcessor
+from .HappyTextProcessor import HappyTextProcessor
 
 __all__= [
     'LikeTextProcessor',
@@ -16,4 +17,5 @@ __all__= [
     'SmileTextProcessor',
     'BeautyTextProcessor',
     'LovelyProcessor',
+    'HappyTextProcessor',
 ]
