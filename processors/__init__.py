@@ -8,6 +8,7 @@ from .BeautyTextProcessor import BeautyTextProcessor
 from .LovelyProcessor import LovelyProcessor
 from .HappyTextProcessor import HappyTextProcessor
 from .MostPopularProcessor import MostPopularProcessor
+from .HardGroupProcessor import HardGroupProcessor
 
 __all__= [
     'LikeTextProcessor',
@@ -20,4 +21,5 @@ __all__= [
     'BeautyTextProcessor',
     'LovelyProcessor',
     'HappyTextProcessor',
+    'HardGroupProcessor'
 ]
