@@ -62,30 +62,30 @@ class HardGroupProcessor(TextProcesser):
                 max_name = ele
 
 
-        f_en_name = False
-        f_max_name = False
-        for i in range(str_records.__len__()):
-            over_result = json.loads(str_records[i]["stats"])
-            for index in range(over_result["result"].__len__()):
-                if over_result["result"][index]["identity"] == en_name:
-                    f_en_name = True
-                if over_result["result"][index]["identity"] == max_name:
-                    f_max_name = True
-                if f_en_name and f_max_name:
-                    break
-            if f_en_name and f_max_name:
-                self.result_ID = str_records[i].id
-                break
+        # f_en_name = False
+        # f_max_name = False
+        # for i in range(str_records.__len__()):
+        #    over_result = json.loads(str_records[i]["stats"])
+        #    for index in range(over_result["result"].__len__()):
+        #        if over_result["result"][index]["identity"] == en_name:
+        #            f_en_name = True
+        #        if over_result["result"][index]["identity"] == max_name:
+        #            f_max_name = True
+        #        if f_en_name and f_max_name:
+        #            break
+        #    if f_en_name and f_max_name:
+        #        self.result_ID = str_records[i].id
+        #        break
 
         try:
-            pic = PictureCollections.objects.get(id=self.result_ID)
-            img = np.fromstring(pic['img'], np.uint8)  #kuangrenlian
-            img = cv2.imdecode(img, cv2.IMREAD_UNCHANGED)
-            path = 'images/{}_beauty.jpg'.format(pic.id)  #保存
-            cv2.imwrite(path, img)
+            # pic = PictureCollections.objects.get(id=self.result_ID)
+            # img = np.fromstring(pic['img'], np.uint8)  #kuangrenlian
+            # img = cv2.imdecode(img, cv2.IMREAD_UNCHANGED)
+            # path = 'images/{}_beauty.jpg'.format(pic.id)  #保存
+            # cv2.imwrite(path, img)
 
-            msg.reply(str(self.name_map) + '\n----------------\n' + en_name + " & " + max_name + " 为最强小团体")
-            msg.reply_image(path)
+            msg.reply(self.id_to_name[en_name] + " & " + self.id_to_name[max_name] + " 为最强小团体, 总共同框" + str(max_val) + '次')
+            # msg.reply_image(path)
 
         except PictureCollections.DoesNotExist:
             msg.reply("The picture is not found.")
